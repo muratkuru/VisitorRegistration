@@ -15,8 +15,6 @@ $visitorService = new VisitorService();
 $isEdit = (isset($_GET["id"]) || !empty($_GET["id"])) && (isset($_POST["id"]) || !empty($_POST["id"]));
 $visitor = array("TC" => "", "Name" => "", "Surname" => "", "Phone" => "", "VisitReason" => "");
 
-echo "<br><br>" . !empty($_GET["id"]) . " " . $isEdit;
-
 if($isEdit)
 {
     $id = isset($_GET["id"]) ? $_GET["id"] : $_POST["id"];
@@ -24,8 +22,8 @@ if($isEdit)
     
     if(!$visitor)
     {
-        // header("Location: index.php");
-        // die();
+        header("Location: index.php");
+        die();
     }
 }
 
