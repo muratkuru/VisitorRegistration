@@ -1,0 +1,24 @@
+body {
+    margin-top: 40px;
+}
+
+.custom-form .form-control, 
+.custom-form .btn {
+    margin-top: 10px;
+}
+
+.filters {
+    margin-bottom: 15px;
+}
+
+.panel {
+    margin-top: 40px;
+}
+
+.panel .panel-heading {
+    font-size: 24px;
+}
+
+.add-button {
+    margin-bottom: 20px;
+}
