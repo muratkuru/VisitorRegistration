@@ -12,8 +12,10 @@ require "services/visitor_service.php";
 
 $visitorService = new VisitorService();
 
-$isEdit = isset($_GET["id"]) || isset($_POST["id"]);
+$isEdit = (isset($_GET["id"]) || !empty($_GET["id"])) && (isset($_POST["id"]) || !empty($_POST["id"]));
 $visitor = array("TC" => "", "Name" => "", "Surname" => "", "Phone" => "", "VisitReason" => "");
+
+echo "<br><br>" . !empty($_GET["id"]) . " " . $isEdit;
 
 if($isEdit)
 {
@@ -22,8 +24,8 @@ if($isEdit)
     
     if(!$visitor)
     {
-        header("Location: index.php");
-        die();
+        // header("Location: index.php");
+        // die();
     }
 }
 
