@@ -52,7 +52,7 @@ class AccountService
                 );
                 if($user)
                 {
-                    $updatedUser = $this->dbConfig->ExecuteNonQuery(
+                    $updatedUser = $this->dbConfig->ExecuteQuery(
                         "update users set Password = '$newPassword'"
                     );
                     if($updatedUser)

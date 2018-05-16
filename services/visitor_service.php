@@ -33,7 +33,7 @@ class VisitorService
     {
         if(isset($visitor["Id"]))
         {
-            $result = $this->dbConfig->ExecuteNonQuery(
+            $result = $this->dbConfig->ExecuteQuery(
                 "update visitors set 
                     TC = '" . $visitor["TC"] . "',
                     Name = '" . $visitor["Name"] . "',
@@ -49,7 +49,7 @@ class VisitorService
         }
         else
         {
-            $result = $this->dbConfig->ExecuteNonQuery(
+            $result = $this->dbConfig->ExecuteQuery(
                 "insert into visitors(TC, Name, Surname, Phone, VisitReason) values(
                     '" . $visitor["TC"] . "',
                     '" . $visitor["Name"] . "',
