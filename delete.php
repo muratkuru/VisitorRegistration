@@ -4,9 +4,20 @@
 
 session_start();
 
-require "services/account_service.php";
+if(!isset($_SESSION["user"]))
+{
+    header("Location: login.php");
+    die();
+}
 
-$accountService = new AccountService();
-$accountService->Logout();
+require "services/visitor_service.php";
+
+$visitorService = new VisitorService();
+
+if(isset($_GET["id"]))
+    $visitorService->DeleteVisitor($_GET["id"]);
+
+header("Location: index.php");
+die();
 
 ?>

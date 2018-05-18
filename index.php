@@ -65,13 +65,13 @@ $users = $visitorService->GetAllVisitors();
                                     <td><?php echo $item["Surname"] ?></td>
                                     <td><?php echo $item["VisitDate"] ?></td>
                                     <td class="text-center">
-                                        <a href="#" class="btn btn-info">
+                                        <a href="detail.php?id=<?php echo $item["Id"]; ?>" class="btn btn-info">
                                             <span class="glyphicon glyphicon-info-sign"></span>
                                         </a>
-                                        <a href="#" class="btn btn-danger">
+                                        <a onclick="return confirm('Ziyaretçi silinsin mi?')" href="delete.php?id=<?php echo $item["Id"]; ?>" class="btn btn-danger">
                                             <span class="glyphicon glyphicon-trash"></span>
                                         </a>
-                                        <a href="#" class="btn btn-warning">
+                                        <a href="addoredit.php?id=<?php echo $item["Id"]; ?>" class="btn btn-warning">
                                             <span class="glyphicon glyphicon-pencil"></span>
                                         </a>
                                     </td>
@@ -87,4 +87,7 @@ $users = $visitorService->GetAllVisitors();
     </div>
     <!-- /.container -->
 
-<?php include("template/footer.php") ?>
+<?php 
+    include("template/footer.php");
+    unset($_SESSION["result"]);
+?>

@@ -65,6 +65,23 @@ class VisitorService
                 $_SESSION["result"] = array("isSuccess" => false, "message" => "Ziyaretçi ekleme sırasında hata oluştu.");
         }
     }
+
+    public function DeleteVisitor($id)
+    {
+        $visitor = $this->GetVisitorById($id);
+        
+        if($visitor)
+        {
+            $deletedVisitor = $this->dbConfig->ExecuteQuery(
+                "delete from visitors where id ='$id'"
+            );
+
+            if($deletedVisitor)
+                $_SESSION["result"] = array("isSuccess" => true, "message" => "Ziyaretçi silme işlemi başarılı.");
+            else
+                $_SESSION["result"] = array("isSuccess" => true, "message" => "Ziyaretçi silme işlemi sırasında hata oluştu.");
+        }
+    }
 }
 
 ?>
