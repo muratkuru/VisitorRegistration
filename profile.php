@@ -14,11 +14,12 @@ $accountService = new AccountService();
 
 if(isset($_POST["control"]))
 {
+    $username = $_SESSION["user"];
     $oldPassword = $_POST["old-password"];
     $newPassword = $_POST["new-password"];
     $confirmPassword = $_POST["confirm-password"];
 
-    $accountService->ChangePassword($oldPassword, $newPassword, $confirmPassword);
+    $accountService->ChangePassword($username, $oldPassword, $newPassword, $confirmPassword);
 }
 
 ?>

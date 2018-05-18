@@ -35,37 +35,28 @@ class AccountService
         die();
     }
 
-    function ChangePassword($password, $newPassword, $confirmPassword)
+    function ChangePassword($username, $password, $newPassword, $confirmPassword)
     {
-        $username = $_SESSION["user"];
-        if(!isset($username))
+        if($newPassword == $confirmPassword)
         {
-            header("Location: login.php");
-            die();
-        }
-        else
-        {
-            if($newPassword == $confirmPassword)
+            $user = $this->dbConfig->GetSingle(
+                "select * from users where Username = '$username' and password = '$password'"
+            );
+            if($user)
             {
-                $user = $this->dbConfig->GetSingle(
-                    "select * from users where Username = '$username' and password = '$password'"
+                $updatedUser = $this->dbConfig->ExecuteQuery(
+                    "update users set Password = '$newPassword'"
                 );
-                if($user)
-                {
-                    $updatedUser = $this->dbConfig->ExecuteQuery(
-                        "update users set Password = '$newPassword'"
-                    );
-                    if($updatedUser)
-                        $_SESSION["result"] = array("isSuccess" => true, "message" => "Parola değişikliği başarılı!");
-                    else
-                        $_SESSION["result"] = array("isSuccess" => false, "message" => "Veritabanı hatası!");
-                }
+                if($updatedUser)
+                    $_SESSION["result"] = array("isSuccess" => true, "message" => "Parola değişikliği başarılı!");
                 else
-                    $_SESSION["result"] = array("isSuccess" => false, "message" => "Eski parola hatalı!");
+                    $_SESSION["result"] = array("isSuccess" => false, "message" => "Veritabanı hatası!");
             }
             else
-                $_SESSION["result"] = array("isSuccess" => false, "message" => "Parolalar eşleşmedi!");
+                $_SESSION["result"] = array("isSuccess" => false, "message" => "Eski parola hatalı!");
         }
+        else
+            $_SESSION["result"] = array("isSuccess" => false, "message" => "Parolalar eşleşmedi!");
     }
 }
 
