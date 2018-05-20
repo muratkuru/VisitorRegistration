@@ -22,3 +22,9 @@ body {
 .add-button {
     margin-bottom: 20px;
 }
+
+.dl-horizontal dt,
+.dl-horizontal dd {
+    margin-bottom: 5px;
+    font-size: 20px;
+}

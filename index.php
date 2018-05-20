@@ -12,7 +12,7 @@ require "services/visitor_service.php";
 
 $visitorService = new VisitorService();
 
-$users = $visitorService->GetAllVisitors();
+$visitors = $visitorService->GetAllVisitors();
 
 ?>
 
@@ -57,7 +57,7 @@ $users = $visitorService->GetAllVisitors();
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach($users as $item) { ?>
+                                <?php foreach($visitors as $item) { ?>
                                 <tr>
                                     <td><?php echo $item["Id"] ?></td>
                                     <td><?php echo $item["TC"] ?></td>
