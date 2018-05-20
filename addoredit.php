@@ -12,13 +12,13 @@ require "services/visitor_service.php";
 
 $visitorService = new VisitorService();
 
-$isEdit = (isset($_GET["id"]) || !empty($_GET["id"])) && (isset($_POST["id"]) || !empty($_POST["id"]));
+//$isEdit = (isset($_GET["id"]) || !empty($_GET["id"])) && (isset($_POST["id"]) || !empty($_POST["id"]));
+$isEdit = isset($_GET["id"]);
 $visitor = array("TC" => "", "Name" => "", "Surname" => "", "Phone" => "", "VisitReason" => "");
 
 if($isEdit)
 {
-    $id = isset($_GET["id"]) ? $_GET["id"] : $_POST["id"];
-    $visitor = $visitorService->GetVisitorById($id);
+    $visitor = $visitorService->GetVisitorById($_GET["id"]);
     
     if(!$visitor)
     {
@@ -32,8 +32,7 @@ if(isset($_POST["control"]))
     $visitor = array();
     
     if($isEdit)
-        $visitor["Id"] = $_POST["id"];
-    
+        $visitor["Id"] = $_GET["id"];
     $visitor["TC"] = $_POST["tc"];
     $visitor["Name"] = $_POST["name"];
     $visitor["Surname"] = $_POST["surname"];
@@ -54,8 +53,7 @@ if(isset($_POST["control"]))
                     <?php echo $isEdit ? "Ziyaretçi Düzenle" : "Yeni Ziyaretçi Ekle"; ?>
                 </div>
                 <div class="panel-body">
-                    <form action="addoredit.php" method="post" class="custom-form">
-                        <input type="hidden" name="id" value="<?php if($isEdit) echo $visitor["Id"]; ?>">
+                    <form action="addoredit.php<?php if($isEdit) echo '?id=' . $visitor["Id"] ?>" method="post" class="custom-form">
                         <input class="form-control" type="text" name="tc" value="<?php echo $visitor["TC"]; ?>" placeholder="T.C. Kimlik" required>
                         <input class="form-control" type="text" name="name" value="<?php echo $visitor["Name"]; ?>" placeholder="Ad" required>
                         <input class="form-control" type="text" name="surname" value="<?php echo $visitor["Surname"]; ?>" placeholder="Soyad" required>
