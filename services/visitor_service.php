@@ -29,6 +29,18 @@ class VisitorService
         return $visitors;
     }
 
+    public function GetVisitorsByFilter($q)
+    {
+        $query = "select * from visitors where ";
+
+        if(isset($q))
+            $query .= "name like '%$q%' or surname like '%$q%' or TC like '%$q%' ";
+        
+        $visitors = $this->dbConfig->GetAll($query);
+
+        return $visitors;
+    }
+
     public function AddOrEdit($visitor)
     {
         if(isset($visitor["Id"]))

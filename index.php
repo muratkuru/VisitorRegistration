@@ -12,7 +12,12 @@ require "services/visitor_service.php";
 
 $visitorService = new VisitorService();
 
-$visitors = $visitorService->GetAllVisitors();
+$isSearch = isset($_GET["q"]) && !empty($_GET["q"]);
+
+if($isSearch)
+    $visitors = $visitorService->GetVisitorsByFilter($_GET["q"]);
+else
+    $visitors = $visitorService->GetAllVisitors();
 
 ?>
 
@@ -33,18 +38,18 @@ $visitors = $visitorService->GetAllVisitors();
                             </div>
                         </div>
                         <div class="row filters">
-                            <div class="col-md-5">
-                                <input type="text" name="filter-input" placeholder="Ad, Soyad ya da T.C. Kimlik ile arayın." class="form-control">
-                            </div>
-                            <div class="col-md-5">
-                                <input type="date" name="filter-date" class="form-control">
-                            </div>
-                            <div class="col-md-2">
-                                <button class="btn btn-success form-control">
-                                    <span class="glyphicon glyphicon-ok"></span> Uygula
-                                </button>
-                            </div>
+                            <form action="index.php" method="get">
+                                <div class="col-md-10">
+                                    <input type="text" name="q" value="<?php echo $isSearch ? $_GET["q"] : "" ?>" placeholder="Ad, Soyad ya da T.C. Kimlik ile arayın." class="form-control">
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn btn-success form-control">
+                                        <span class="glyphicon glyphicon-ok"></span> Uygula
+                                    </button>
+                                </div>
+                            </form>
                         </div>
+                        <?php echo $isSearch ? "<h3>\"" . $_GET["q"] . "\" için arama sonuçları.</h3>" : "" ?>
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
